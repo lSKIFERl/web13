@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import {connect} from 'react-redux'
 
+var form = document.getElementByName('Myform');
+
 class App extends React.Component {
   render() {
     return (
@@ -101,5 +103,38 @@ class App extends React.Component {
     );
   }
 }
+
+$('#form').submit(async function (e) {
+
+    localStorage.removeItem('Name');
+    localStorage.removeItem('Phone');
+    localStorage.removeItem('Region');
+    localStorage.removeItem('Msg');
+    form.name.value = '';
+    form.phone.value = '';
+    form.region.value = '';
+    form.message.value = '';
+    
+    e.preventDefault() // Ортурито, допиши на реакте в div потом что-то вроде :prevent вместо вот этого. 
+                       // В vue.js по крайней мере так можно
+}
+
+form.name.value = localStorage.getItem('Name');
+form.name.oninput = () => {
+    localStorage.setItem('Name', form.name.value);
+}
+form.phone.value = localStorage.getItem('Phone');
+form.phone.oninput = () => {
+    localStorage.setItem('Phone', form.phone.value);
+}
+form.region.value = localStorage.getItem('Region');
+form.region.oninput = () => {
+    localStorage.setItem('Region', form.region.value);
+}
+form.message.value = localStorage.getItem('Msg');
+form.message.oninput = () => {
+    localStorage.setItem('Msg', form.message.value);
+}
+
 
 export default App;
