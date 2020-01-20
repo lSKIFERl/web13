@@ -1,0 +1,168 @@
+import React from 'react';
+import './App.css';
+
+function lockedButton() {
+  return {
+    type: types.LOCKED_BUTTON,
+    payload: <DisableSendButton />
+  };
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value1: '',value2: '',value3: 0,value4: ''};
+    this.handleChangename = this.handleChangename.bind(this);
+    this.handleChangephone = this.handleChangephone.bind(this);
+    this.handleChangeregion = this.handleChangeregion.bind(this);
+    this.handleChangemessage = this.handleChangemessage.bind(this);
+  }
+  handleChangename(event) {
+    this.setState({value1: event.target.value});
+  }
+  handleChangephone(event) {
+    this.setState({value2: event.target.value});
+  }
+  handleChangeregion(event) {
+    this.setState({value3: event.target.value});
+  }
+  handleChangemessage(event) {
+    this.setState({value4: event.target.value});
+  }
+
+  PostFormCarry = async()=>{
+    const dispatch = this.props.dispatch;
+    dispatch(actions.lockedButton());
+    if(this.proverkaform())
+    {
+      const senS = await  fetch("https://formcarry.com/s/05H7k_azQ84", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify({name: this.state.value1,phone:this.state.value2,region:this.state.value3,text:this.state.value4})
+      });
+    }
+  }
+  proverkaform = async()=>{
+    if(!this.state.value1)
+    {
+      alert("Введите имя");
+      return 0;
+    }
+    if(!this.state.value2)
+    {
+      alert("Введите телефон");
+      return 0;
+    }
+    if(!this.state.value3)
+    {
+      alert("Выберите регион");
+      return 0;
+    }
+    if(!this.state.value4)
+    {
+      alert("Напишите сообщение");
+      return 0;
+    }
+    return 1;
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.PostFormCarry} name="Myform" action="https://formcarry.com/s/05H7k_azQ84" method="POST">
+        <input id="name" type="text" name="name" placeholder="Имя" value={this.state.value1} onChange={this.handleChangename} />
+        <input id="phone" type="tel" name="phone" placeholder="Телефон" value={this.state.value2} onChange={this.handleChangephone} />
+        <select name="region" class="selection" value={this.state.value3} onChange={this.handleChangeregion}> 
+        <option value="0">Регион</option>
+            <option value="1">Республика Адыгея</option>
+            <option value="2">Республика Башкортостан</option>
+            <option value="3">Республика Бурятия</option>
+            <option value="4">Республика Алтай</option>
+            <option value="5">Республика Дагестан</option>
+            <option value="6">Республика Ингушетия</option>
+            <option value="7">Кабардино-Балкарская Республика</option>
+            <option value="8">Республика Калмыкия</option>
+            <option value="9">Карачаево-Черкесская Республика</option>
+            <option value="10">Республика Карелия</option>
+            <option value="11">Республика Коми</option>
+            <option value="12">Республика Марий Эл</option>
+            <option value="13">Республика Мордовия</option>
+            <option value="14">Республика Саха</option>
+            <option value="15">Республика Северная Осетия - Алания</option>
+            <option value="16">Республика Татарстан</option>
+            <option value="17">Республика Тыва</option>
+            <option value="18">Удмуртская Республика</option>
+            <option value="19">Республика Хакасия</option>
+            <option value="20">Чеченская Республика</option>
+            <option value="21">Чувашская Республика</option>
+            <option value="22">Алтайский край</option>
+            <option value="23">Краснодарский край</option>
+            <option value="24">Красноярский край</option> 
+            <option value="25">Приморский край</option>
+            <option value="26">Ставропольский край</option>
+            <option value="27">Хабаровский край</option>
+            <option value="28">Амурская область</option>
+            <option value="29">Архангельская область</option>
+            <option value="30">Астраханская область</option>
+            <option value="31">Белгородская область</option>
+            <option value="32">Брянская область</option>
+            <option value="33">Владимирская область</option>
+            <option value="34">Волгоградская область</option>
+            <option value="35">Вологодская область</option>
+            <option value="36">Воронежская область</option>
+            <option value="37">Ивановская область</option>
+            <option value="38">Иркутская область</option>
+            <option value="39">Калининградская область</option>
+            <option value="40">Калужская область</option>
+            <option value="41">Камчатский край</option>
+            <option value="42">Кемеровская область</option>
+            <option value="43">Кировская область</option>
+            <option value="44">Костромская область</option>
+            <option value="45">Курганская область</option>
+            <option value="46">Курская область</option>
+            <option value="47">Ленинградская область</option>
+            <option value="48">Липецкая область</option>
+            <option value="49">Магаданская область</option>
+            <option value="50">Московская область</option>
+            <option value="51">Мурманская область</option>
+            <option value="52">Нижегородская область</option>
+            <option value="53">Новгородская область</option>
+            <option value="54">Новосибирская область</option>
+            <option value="55">Омская область</option>
+            <option value="56">Оренбургская область</option>
+            <option value="57">Орловская область</option>
+            <option value="58">Пензенская область</option>
+            <option value="59">Пермский край</option>
+            <option value="60">Псковская область</option>
+            <option value="61">Ростовская область</option>
+            <option value="62">Рязанская область</option>
+            <option value="63">Самарская область</option>
+            <option value="64">Саратовская область</option>
+            <option value="65">Сахалинская область</option>
+            <option value="66">Свердловская область</option>
+            <option value="67">Смоленская область</option>
+            <option value="68">Тамбовская область</option>
+            <option value="69">Тверская область</option>
+            <option value="70">Томская область</option>
+            <option value="71">Тульская область</option>
+            <option value="72">Тюменская область</option>
+            <option value="73">Ульяновская область</option>
+            <option value="74">Челябинская область</option>
+            <option  value="75">Забайкальский край</option>
+            <option value="76">Ярославская область</option>
+            <option value="77">Еврейская автономная область</option>
+            <option value="78">Ненецкий автономный округ</option> 
+            <option value="79">Ханты-Мансийский автономный округ</option>
+            <option value="80">Чукотский автономный округ</option>
+            <option value="81">Ямало-Ненецкий автономный округ</option>
+            <option value="82">Республика Крым</option>
+        </select>
+        <textarea id="message" name="message" class="inputbox" cols="50" rows="5" placeholder="Ваше сообщение" value={this.state.value4} onChange={this.handleChangemessage} />
+        <button id="buttonpost" className="buttonPost" class="btn" type="submit">отправить</button>
+        <div id="PostAnimation" style={{bottom:100, width:50,opacity:0}}><img src="padoru.gif" alt="Пример" width="150" height="150"/></div>
+        <button title="Close (Esc)" type="button" class="close">×</button>
+      </form>
+    );
+  }
+}
+
+export default App;
